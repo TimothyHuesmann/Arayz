@@ -1,6 +1,6 @@
 var app = angular.module('arayzApp', ["firebase"]);
 app.controller('indexController', function($scope){
-	var ref = new Firebase("https://arayz.firebaseIO.com/");
+	var ref = new Firebase("https://arayz.firebaseio.com/");
 	var authData = ref.getAuth();
 	$scope.isAuthenticated = false;
 	$scope.authData = authData;
@@ -8,7 +8,7 @@ app.controller('indexController', function($scope){
 	if(authData){
 		$scope.isAuthenticated = true;
 		$scope.userEmail = authData.password.email;
-		ref.child("role").child(authData.uid).on("value", function(data){
+		ref.child("Role").child(authData.uid).on("value", function(data){
 			$scope.role = data.val();
 			$scope.$apply();
 		});
@@ -24,12 +24,10 @@ app.controller('indexController', function($scope){
         email    : this.username,
         password : this.password
     }, function(error, authData){
-        if (error) 
-        {
+        if (error) {
             console.log(error);
         }
-        else 
-        {
+        else {
             location.reload();        
         }
     });
