@@ -1,0 +1,23 @@
+{
+  "name": "Arayz",
+  "homepage": "https://github.com/TimothyHuesmann/Arayz",
+  "authors": [
+    "Timothy Huesmann <timothy.huesmann@gmail.com>"
+  ],
+  "description": "AngularJS SMS application",
+  "main": "index.html",
+  "keywords": [
+    "Arayz"
+  ],
+  "license": "null",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular-twilio": "*"
+  }
+}

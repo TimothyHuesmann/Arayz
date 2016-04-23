@@ -7,6 +7,7 @@
 	<script src="controllers/indexController.js"></script>
 	<script src="controllers/userController.js"></script>
 	<script src="controllers/adminController.js"></script>
+	<script src="bower_components/angular-twilio/angular-twilio.js"></script>
 	<head>
 		<title>Arayz Home</title>
 		<meta charset="utf-8">
@@ -31,17 +32,28 @@
 		<button ng-click="logout()">Logout</button>
 
 			<div id="main" ng-if="role == 'user'" ng-controller="userController">
-				
+				<form>
+                
+                First Name: <input type="text" name="firstname" value=""><br>
+                Last Name: <input type="text" name="lastname"value=""><br>
+                Email: <input type="text" name="useremail"value=""><br>
+                Cell Phone Number: <input type="text" name="cellnumber" value=""><br>
+                Country: <select ng-model="countryOptions" ng-options="country in countries"></select>
+                <div ng-if="{{countryOptions}} == 'United States'">
+                State: <select ng-model="stateOptions" ng-options="state in usStates"></select>
+                </div>
 			</div>
 
 			<div id="main" ng-if="role == 'admin'" ng-controller="adminController">
-				<table width="50%">
-					<h3> Your Current Campaigns </h3>
+				<table width="50%" align="center">
+					<h3> Your Current Campaigns: </h3>
 					<tr ng-repeat="obj in campaigns | filter: { admin : myUID }">
-						<td>{{ obj.name }}</td>
-						<td>{{ obj.size }}</td>
+						<td><p>{{ obj.name }}</p></td>
+						<td><p>{{ obj.size }}</p></td>
+						<td><button ng-click="sendMessage(obj)">Send Message</button>
 					</tr>
 				</table>
+				<input type="submit" ng-click="createCampaign()" value="Create Campaign">
 			</div>
 
 		</div>

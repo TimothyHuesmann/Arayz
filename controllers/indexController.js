@@ -1,4 +1,4 @@
-var app = angular.module('arayzApp', ["firebase"]);
+var app = angular.module('arayzApp', ["firebase", "mcwebb.twilio"]);
 app.controller('indexController', function($scope){
 	var ref = new Firebase("https://arayz.firebaseio.com/");
 	var authData = ref.getAuth();
