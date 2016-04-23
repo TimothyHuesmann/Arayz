@@ -38,10 +38,7 @@
                 Last Name: <input type="text" name="lastname"value=""><br>
                 Email: <input type="text" name="useremail"value=""><br>
                 Cell Phone Number: <input type="text" name="cellnumber" value=""><br>
-                Country: <select ng-model="countryOptions" ng-options="country in countries"></select>
-                <div ng-if="{{countryOptions}} == 'United States'">
-                State: <select ng-model="stateOptions" ng-options="state in usStates"></select>
-                </div>
+                Country: <select ng-model="selectedCountry" ng-options="country in countries"></select>
 			</div>
 
 			<div id="main" ng-if="role == 'admin'" ng-controller="adminController">
