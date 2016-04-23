@@ -35,7 +35,13 @@
 			</div>
 
 			<div id="main" ng-if="role == 'admin'" ng-controller="adminController">
-
+				<table width="50%">
+					<h3> Your Current Campaigns </h3>
+					<tr ng-repeat="obj in campaigns | filter: { admin : myUID }">
+						<td>{{ obj.name }}</td>
+						<td>{{ obj.size }}</td>
+					</tr>
+				</table>
 			</div>
 
 		</div>
