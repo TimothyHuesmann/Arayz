@@ -2,14 +2,20 @@
 <html>
 	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
 	<script src="https://cdn.firebase.com/js/client/2.4.1/firebase.js"></script>
+	<script src="https://cdn.firebase.com/libs/angularfire/1.1.3/angularfire.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
 	<script src="controllers/indexController.js"></script>
+	<script src="controllers/userController.js"></script>
+	<script src="controllers/adminController.js"></script>
+	<script src="bower_components/angular-twilio/angular-twilio.js"></script>
 	<head>
 		<title>Arayz Home</title>
 		<meta charset="utf-8">
+		<link href="css/style.css" rel='stylesheet'type='text/css' />
 	</head>
-	<body ng-app="arayzApp" ng-controller="indexController.js">
-		<div ng-if="isAuthenticated == false" class="login-form">
-			<form>
+	<body ng-app="arayzApp" ng-controller="indexController">
+		<div ng-if="isAuthenticated == false" class="login-form" align="center">
+			<h1> Welcome to Arayz </h1>
 				<li>
 					<input type="text" ng-model="username" placeholder="Username"/>
 				</li>
@@ -17,9 +23,39 @@
 					<input type="password" ng-model="password" placeholder="Password"/>
 				</li>
 				<div align="center">
-					<input type="submit" ng-click="login()" value="SIGN IN"/>
+					<input type="submit" ng-click="login()" value="SIGN IN" >
 				</div>
 			</form>
+		</div>
+		<div ng-if="isAuthenticated == true">
+		<h1> Welcome {{ userEmail }} - {{ role }}</h1>
+		<button ng-click="logout()">Logout</button>
+
+			<div id="main" ng-if="role == 'user'" ng-controller="userController">
+				<form>
+                
+                First Name: <input type="text" name="firstname" value=""><br>
+                Last Name: <input type="text" name="lastname"value=""><br>
+                Email: <input type="text" name="useremail"value=""><br>
+                Cell Phone Number: <input type="text" name="cellnumber" value=""><br>
+                Country: <select ng-model="countryOptions" ng-options="country in countries"></select>
+                <div ng-if="{{countryOptions}} == 'United States'">
+                State: <select ng-model="stateOptions" ng-options="state in usStates"></select>
+                </div>
+			</div>
+
+			<div id="main" ng-if="role == 'admin'" ng-controller="adminController">
+				<table width="50%" align="center">
+					<h3> Your Current Campaigns: </h3>
+					<tr ng-repeat="obj in campaigns | filter: { admin : myUID }">
+						<td><p>{{ obj.name }}</p></td>
+						<td><p>{{ obj.size }}</p></td>
+						<td><button ng-click="sendMessage(obj)">Send Message</button>
+					</tr>
+				</table>
+				<input type="submit" ng-click="createCampaign()" value="Create Campaign">
+			</div>
+
 		</div>
 	</body>
 </html>
